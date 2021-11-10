@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="2bd84a38-dd9a-40bf-be9b-af9354e5b964" >
+		<http:listener-connection host="${secure::http.host}" port="${secure::http.port}" />
+	</http:listener-config>
+	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="cea814c2-5d77-4cf3-8de8-d4106c6bc776" file="dev-conf.properties" key="mulesoft12345678" />
+	<flow name="config-demoFlow" doc:id="8c54a9a1-2107-4dfd-86ca-77437c68865c" >
+		<http:listener doc:name="Listener" doc:id="80822eec-96f8-4bcf-8ede-f39a178a2119" config-ref="HTTP_Listener_config" path="/confi"/>
+		<logger level="INFO" doc:name="Logger" doc:id="9ad35e6d-d450-4a29-83be-238cba77e251" message="${secure::db.user}"/>
+	</flow>
+</mule>
